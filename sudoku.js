@@ -48,8 +48,8 @@ function solve(board) {
 }
 
 console.table(solve(board));
-let noone = solve(board)
-console.log(noone);
+// let noone = solve(board)
+// console.log(noone);
 
 function isSolved(arr) {
   /**
@@ -77,24 +77,29 @@ function isSolved(arr) {
   return result;
 }
 
-// function prettyBoard(board) {
-//   for (let i = 0; i < board.length; i++) {
-//     if (i % 3 === 0 && i !== 0) {
-//       console.log('--- --- ---');
-//     }
-//     let newStr = '';
-//     for (let j = 0; j < board[i].length; j++) {
-//       if (j % 3 === 0 && j !== 0) {
-//         newStr += '|';
-//       }
-//       if (board[i][j] === 0) {
-//         newStr += ' ';
-//       } else {
-//         newStr += board[i][j];
-//       }
-//       newStr += ' ';
-//     }
-//     console.log(newStr);
-//   }
-//   return newStr;
-// }
+function prettyBoard(board) {
+  for (let i = 0; i < board.length; i++) {
+    if (i % 3 === 0 && i !== 0) {
+      console.log('--- --- ---');
+    }
+    let newStr = '';
+    for (let j = 0; j < board[i].length; j++) {
+      if (j % 3 === 0 && j !== 0) {
+        newStr += '|';
+      }
+      if (board[i][j] === 0) {
+        newStr += ' ';
+      } else {
+        newStr += board[i][j];
+      }
+      newStr += ' ';
+    }
+    console.log(newStr);
+  }
+  return newStr;
+}
+
+module.exports = {
+  solve,
+  read,
+};
