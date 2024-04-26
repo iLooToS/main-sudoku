@@ -1,28 +1,56 @@
-const boardDesc =[[1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9],
-[1, 2, 3, 4, null, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9],
-[1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]];
+/* eslint-disable no-unreachable-loop */
 
-// console.table(boardDesc);
-
-function read() {
-  /**
-   * Прочесть файл puzzles.txt в кодировке 'utf-8' и вернуть эти данные из функции
-   */
+function read(num) {
+  const fs = require('fs');
+  const { EOL } = require('os');
+  const board = fs.readFileSync('puzzles.txt', 'utf-8');
+  const boardAllSudoku = board.split(EOL);
+  let arrSudoku;
+  for (let i = 0; i <= boardAllSudoku.length; i += 1) {
+    arrSudoku = boardAllSudoku[num - 1].split('');
+    break;
+  }
+  const playingField = [];
+  for (let i = 0; i < arrSudoku.length; i += 9) {
+    playingField.push(arrSudoku.slice(i, i + 9));
+  }
+  const result = playingField.map((row) => row.map((el) => {
+    if (el === '-') {
+      return el = null;
+    }
+    return Number(el);
+  }));
+  return result;
 }
 
-function solve() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции read.
-   * Возвращает игровое поле после попытки его решить.
-   */
+// console.table(read(1));
+const board = read(1);
+console.table(board);
+function solve(board) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] === null) {
+        for (let k = 1; k < 10; k++) {
+          // if (true) {
+          if (isSolved(board, i, j, k)) {
+            board[i][j] = k;
+            if (solve(board)) {
+              return board;
+            }
+            board[i][j] = null;
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return board;
 }
 
-function isSolved(arr) {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Возвращает булевое значение — решено это игровое поле или нет.
-   */
-}
+console.table(solve(board));
+let noone = solve(board)
+console.log(noone);
+
   function isSolved(arr) {
     let result = true
     
@@ -98,10 +126,24 @@ function isSolved(arr) {
 
       console.log(isSolved(boardDesc));
 
-// function prettyBoard() {
-//   /**
-//    * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-//    * Выводит в консоль/терминал судоку.
-//    * Подумай, как симпатичнее его вывести.
-//    */
+// function prettyBoard(board) {
+//   for (let i = 0; i < board.length; i++) {
+//     if (i % 3 === 0 && i !== 0) {
+//       console.log('--- --- ---');
+//     }
+//     let newStr = '';
+//     for (let j = 0; j < board[i].length; j++) {
+//       if (j % 3 === 0 && j !== 0) {
+//         newStr += '|';
+//       }
+//       if (board[i][j] === 0) {
+//         newStr += ' ';
+//       } else {
+//         newStr += board[i][j];
+//       }
+//       newStr += ' ';
+//     }
+//     console.log(newStr);
+//   }
+//   return newStr;
 // }
