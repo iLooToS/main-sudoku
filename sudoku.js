@@ -1,7 +1,13 @@
 const boardDesc = [
-  [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
 ];
 const boardExperemental = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -115,14 +121,33 @@ function isSolved(arr) {
 
   return result
 }
+const fs = require('fs');
+const { EOL } = require('os');
 
-function prettyBoard() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Выводит в консоль/терминал судоку.
-   * Подумай, как симпатичнее его вывести.
-   */
+function prettyBoard(func) {
+  func = isSolved();
+  for (let i = 0; i < func.length; i++) {
+    if (i % 3 === 0 && i !== 0) {
+      console.log('--- --- ---');
+    }
+    let newStr = '';
+    for (let j = 0; j < func[i].length; j++) {
+      if (j % 3 === 0 && j !== 0) {
+        newStr += '|';
+      }
+      if (func[i][j] === 0) {
+        newwStr += ' ';
+      } else {
+        newwStr += func[i][j];
+      }
+      newStr += ' ';
+    }
+    console.log(newStr);
+  }
 }
+
+prettyBoard(isSolved());
 
 console.table(solve(boardExperemental));
 console.log(boardExperemental.flat().length);
+
