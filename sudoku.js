@@ -26,7 +26,7 @@ function read(num) {
 
 // console.table(read(1));
 const board = read(1);
-console.table(board);
+// console.table(board);
 function solve(board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -59,11 +59,18 @@ function isSolved(board, row, col, num) {
     for (let j = startCol; j < startCol + 3; j++) {
       if (board[i][j] === num) {
         return false;
+
       }
     }
   }
   return true;
 }
+
+
+module.exports = {
+  solve,
+  read,
+};
 
 // function isSolved(arr) {
 //   let result = true;
@@ -134,9 +141,9 @@ function isSolved(board, row, col, num) {
 //   return result;
 // }
 
-console.table(solve(board));
-const noone = solve(board);
-console.log(noone);
+// console.table(solve(board));
+// const noone = solve(board);
+// console.log(noone);
 
 // function prettyBoard(board) {
 //   for (let i = 0; i < board.length; i++) {
